@@ -1,0 +1,10 @@
+tick101, ev003, fred, 20230802, 0
+tick102, ev002, gio, 20230803, 2
+tick103, ev002, bilal, 20230804, 2
+tick104, ev001, ahmad, 20230804, 2
+tick105, ev001, nawal, 20230805, 2
+tick106, ev002, geo, 20230802, 2
+tick107, ev003, charbel, 20230803, 2
+tick108, ev003, hadi, 20230805, 2
+tick109, ev002, nadia, 20230802, 2
+tick110, ev001, rachele, 20230804, 2
