@@ -1,3 +1,36 @@
+with open("text.txt","r+") as file:
+  #https://youtu.be/Uh2ebFW8OYM (File objects - Reading and writing to file. Includes iterating through file lines)
+
+  l = [] #empty list to append items in the lines of file
+  for line in file:
+    line = line.strip()
+    l.append(line)
+#Let's convert the list to dictionary witj key being ticket id, and value being a list of four parameters.
+  D = {}
+  for i in range(len(l)):
+    ticket = l[i].split(", ")
+    D[ticket[0]] = [ticket[1],ticket[2],ticket[3],ticket[4]]
+
+
+
+
+
+####################
+#Date: Create a variable that takes date from computer and format it as specified in the midterm assignment##
+####################
+
+from datetime import date
+
+today = date.today()
+
+# dd/mm/YY
+date = today.strftime("%Y%m%d")
+#https://www.programiz.com/python-programming/datetime/current-datetime
+
+
+
+
+
 ####################
 #Display Main Menu:#
 ####################
