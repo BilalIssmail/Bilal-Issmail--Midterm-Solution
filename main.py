@@ -46,14 +46,21 @@ def dispMenu(n):
     password = input("Enter your password:")
 
     if password == "": #blank password indicate normal user
-      print("Welcome " + user_name + "!")
-      dispUserMenu()
+      if user_name == "admin":
+        print("You've entered a wrong password. Please enter the correct admin password, or enter your username and leave password blank if you want to book a ticket.")
+        n += 1
+        print("You have " + str(5 - n) + " attempts left to access admin menu.")
+        dispMenu(n)
+
+      else:
+        print("Welcome " + user_name + "!")
+        dispUserMenu()
 
     elif user_name == "admin" and password == "admin123123":
       print ("Welcome admin!")
       dispAdMenu()
     else: # entering any password is considered an admin attempt
-      print("You've entered a wrong password. Please enter the correct admin password or leave password blank if you want to book a ticket.")
+      print("You've entered a wrong password. Please enter the correct admin password, or enter your username and leave password blank if you want to book a ticket.")
       n += 1 # incrementing the attempt counter
       print("You have " + str(5 - n) + " attempts left to access admin menu.")
       dispMenu(n)
@@ -98,6 +105,9 @@ def dispAdMenu():
   elif admin_input == 7:
     print("You have logged out.")
     dispMenu(n)
+  else:
+    print("Wrong entry. Please select a number from the shown menu.")
+    dispAdMenu()
 
 
 ###########################
@@ -118,3 +128,9 @@ def dispUserMenu():
 
 
 ###############
+
+
+
+
+
+
