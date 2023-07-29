@@ -86,7 +86,7 @@ Please enter the number of your choice: """  )
     changePriority()
     dispAdMenu
   elif int(admin_input) == 5:
-    disableTicket()
+    removeTicket()
     dispAdMenu()
   elif int(admin_input) == 6:
     runEvent()
@@ -160,8 +160,17 @@ def changePriority():
   dispAdMenu()
 
 #Remove Ticket:
-
 def removeTicket():
+  ticket_id = input("Enter the id of the ticket you want to remove: ")
+  if ticket_id not in D:
+    print("The ticket id entered does not exist in the system. please enter a correct ticket id.")
+    removeTicket()
+  else:
+    print("The ticket " + ticket_id + " has been successfully removed.")
+    del D[ticket_id]
+  dispAdMenu()
+
+
   
 
 dispMenu(n)
