@@ -11,30 +11,21 @@ with open("text.txt","r+") as file:
     ticket = l[i].split(", ")
     D[ticket[0]] = [ticket[1],ticket[2],ticket[3],ticket[4]]
 
+  # In the same way let's make a list collecting all tickets as list items.
+  lst1 = []
+  for i in range(len(l)):
+    lst1.append(l[i].split(", "))
+    
+'''event_lst = []
+for i in range(len(lst1)):
+  event_num = int(str(lst1[i][3]) + str(lst1[i][1][2:]))
+  event_lst.append(event_num)
 
-
-
-
-####################
-#Date: Create a variable that takes date from computer and format it as specified in the midterm assignment##
-####################
-
-from datetime import date
-
-today = date.today()
-
-# dd/mm/YY
-date = today.strftime("%Y%m%d")
-#https://www.programiz.com/python-programming/datetime/current-datetime
-
-
-
-
+for i in range(len(event_lst)):'''
 
 ####################
 #Display Main Menu:#
 ####################
-
 
 n = 0 # setting a counter for admin attempts
 def dispMenu(n):
@@ -68,15 +59,13 @@ def dispMenu(n):
   else:
     print("You have reached maximum attempt limit.")
 
-
 #####################
 #Display Admin Menu:#
 #####################
 
-
 def dispAdMenu():
   admin_input = input("""Please select the number of your choice:
-1. Display Statistics")
+1. Display Statistics
 2. Book a Ticket
 3. Display all Tickets
 4. Change Ticket’s Priority
@@ -87,7 +76,7 @@ def dispAdMenu():
   if admin_input == 1:
     dispStat()
     dispAdMenu()
-  elif admin_input == 2:
+  elif int(admin_input) == 2:
     bookTicket()
     dispAdMenu()
   elif admin_input == 3:
@@ -109,11 +98,9 @@ def dispAdMenu():
     print("Wrong entry. Please select a number from the shown menu.")
     dispAdMenu()
 
-
 ###########################
 #Display Normal User Menu:#
 ###########################
-
 
 def dispUserMenu():
   user_input = input("""Please select the number of your choice:
@@ -126,11 +113,38 @@ def dispUserMenu():
     You can book another ticket or exit.""")
     dispUserMenu()
 
+######################
+#Admin Menu Functions#
+######################
 
-###############
+# Display Statistics:
 
+#Admin Book ticket
 
+def bookTicket():
+  id_list = [i for i in D]
+  id_list.sort()
+  new_ticket = int((id_list[-1][4:]))+1
+  
+  if new_ticket < 10:
+    ticket_id = "tick00" + str(new_ticket)
+  elif 10 <= new_ticket <100 :
+    ticket_id = "tick0" + str(new_ticket)
+  else:
+    ticket_id = "tick" + str(new_ticket)
 
+  user_name = input("Please enter the username: ")
+  event_id = input("Please enter the event id: ")
+  event_date  =input("Please enter the event date in the form YYYYMMDD: ")
+  priority = input("Please enter the priority of the ticket: ")
+
+  D[ticket_id] = [user_name,event_id,event_date,priority]
+  print(ticket_id + " was successfully booked.")
+
+#Display All Tickets
+
+def dispAllTickets():
+  
 
 
 
