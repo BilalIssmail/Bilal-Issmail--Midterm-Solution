@@ -64,7 +64,7 @@ def dispMenu(n):
 #####################
 
 def dispAdMenu():
-  admin_input = input("""Please select the number of your choice:
+  admin_input = input("""Admin Menu:
 1. Display Statistics
 2. Book a Ticket
 3. Display all Tickets
@@ -72,26 +72,26 @@ def dispAdMenu():
 5. Disable Ticket
 6. Run Events
 7. Exit
-"""  )
+Please enter the number of your choice: """  )
   if admin_input == 1:
     dispStat()
     dispAdMenu()
   elif int(admin_input) == 2:
     bookTicket()
     dispAdMenu()
-  elif admin_input == 3:
+  elif int(admin_input) == 3:
     dispAllTickets()
     dispAdMenu()
-  elif admin_input == 4:
+  elif int(admin_input) == 4:
     changePriority()
     dispAdMenu
-  elif admin_input == 5:
+  elif int(admin_input) == 5:
     disableTicket()
     dispAdMenu()
-  elif admin_input == 6:
+  elif int(admin_input) == 6:
     runEvent()
     dispAdMenu()
-  elif admin_input == 7:
+  elif int(admin_input) == 7:
     print("You have logged out.")
     dispMenu(n)
   else:
@@ -143,8 +143,25 @@ def bookTicket():
 
 #Display All Tickets
 
-def dispAllTickets():
+
+
+
+#Change Priority:
+
+def changePriority():
+  ticket_id = input("Enter the id of the ticket you want to change priority for: ")
+  if ticket_id not in D:
+    print("The ticket id entered does not exist in the system. please enter a correct ticket id.")
+    changePriority()
+  else:
+    new_priority = int(input("Enter the new priority value to be assigned to this ticket: "))
+    D[ticket_id][3] = new_priority
+    print("The ticket " + ticket_id + " has been successfully assigned a " + str(new_priority) + " priority value.")
+  dispAdMenu()
+
+#Remove Ticket:
+
+def removeTicket():
   
 
-
-
+dispMenu(n)
