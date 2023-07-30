@@ -5,7 +5,8 @@ with open("text.txt","r+") as file:
   for line in file:
     line = line.strip()
     l.append(line)
-#Let's convert the list to dictionary witj key being ticket id, and value being a list of four parameters.
+
+#Let's convert the list to dictionary with key being ticket id, and value being a list of four parameters.
   D = {}
   for i in range(len(l)):
     ticket = l[i].split(", ")
@@ -15,13 +16,8 @@ with open("text.txt","r+") as file:
   lst1 = []
   for i in range(len(l)):
     lst1.append(l[i].split(", "))
-    
-'''event_lst = []
-for i in range(len(lst1)):
-  event_num = int(str(lst1[i][3]) + str(lst1[i][1][2:]))
-  event_lst.append(event_num)
 
-for i in range(len(event_lst)):'''
+
 
 ####################
 #Display Main Menu:#
@@ -89,7 +85,7 @@ Please enter the number of your choice: """  )
     removeTicket()
     dispAdMenu()
   elif int(admin_input) == 6:
-    runEvent()
+    runEvents()
     dispAdMenu()
   elif int(admin_input) == 7:
     print("You have logged out.")
@@ -122,6 +118,7 @@ def dispUserMenu():
 #Admin Book ticket
 
 def bookTicket():
+
   id_list = [i for i in D]
   id_list.sort()
   new_ticket = int((id_list[-1][4:]))+1
@@ -172,5 +169,24 @@ def removeTicket():
 
 
   
+
+# 6 Run Events:
+
+from datetime import date
+today = date.today() # dd/mm/YY
+date = today.strftime("%Y%m%d") #https://www.programiz.com/python-programming/datetime/current-datetime
+def runEvents():
+  print("The following tickets are to be run today: ")
+
+  today_events = []
+  for ticket in lst1:
+    if ticket[3] == date:
+      today_events.append(ticket)
+
+
+
+  for ticket in today_events:
+    print(ticket)
+    lst1.remove(ticket)
 
 dispMenu(n)
