@@ -114,7 +114,34 @@ def dispUserMenu():
 ######################
 
 # Display Statistics:
+event_dict = {}
+for i in D:
+  if D[i][0] not in event_dict:
+    event_dict[D[i][0]]=[i]
+  else:
+    event_dict[D[i][0]].append(i)
 
+
+date_dict = {}
+for i in D:
+  if D[i][2] not in date_dict:
+    date_dict[D[i][2]]=[i]
+  else:
+    date_dict[D[i][2]].append(i)
+
+
+#list that shows all events:
+
+all_ev_lst = []
+for i in range(len(lst1)):
+  for j in range(len(lst1[i])):
+    temp_lst = [lst1[i][3],lst1[i][1]]
+    if temp_lst not in all_ev_lst: 
+      all_ev_lst.append(temp_lst)
+
+print(len(all_ev_lst))
+print(all_ev_lst)
+        
 #Admin Book ticket
 
 def bookTicket():
@@ -140,7 +167,8 @@ def bookTicket():
 
 #Display All Tickets
 
-
+#for k, v in event_dict.items():
+ # print(v)
 
 
 #Change Priority:
@@ -189,4 +217,4 @@ def runEvents():
     print(ticket)
     lst1.remove(ticket)
 
-dispMenu(n)
+#dispMenu(n)
