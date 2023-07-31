@@ -174,8 +174,105 @@ def bookTicket():
 
 #Display All Tickets
 
-#for k, v in event_dict.items():
- # print(v)
+def dispAllTickets():
+  today_events = []
+  tomorrow_events = []
+  upcoming_events = []
+  mergeSort(lst1)
+  from datetime import date
+  today = date.today() # dd/mm/YY
+  date = today.strftime("%Y%m%d")
+  for ticket in lst1:
+    if int(ticket[3])  == int(date):
+      today_events.append(ticket)
+      mergeSort1(today_events)
+    elif int(ticket[3])  == int(date) + 1:
+      tomorrow_events.append(ticket)
+      mergeSort(tomorrow_events)
+    elif int(ticket[3])  > int(date) + 1:
+      upcoming_events.append(ticket)
+      mergeSort(upcoming_events)
+      mergeSort1(upcoming_events)
+
+  print(int(date))
+  print("Today's events tickets are: ")
+  print(today_events)
+  print("Tomorrow's events tickets are: ")
+  print(tomorrow_events)
+  print("Upcoming events tickets are: ")
+  print(upcoming_events)
+#mergeSort1(upcoming_events)
+ # print(upcoming_events)
+  
+def mergeSort(l):
+  if len(l)>1:
+    left_side=l[:len(l)//2]
+    right_side=l[len(l)//2:]
+    mergeSort(left_side) 
+    mergeSort(right_side)
+
+    i=0 
+    j=0 
+    m=0 
+    while i<len(left_side) and j<len(right_side):
+      if int(left_side[i][3])<int(right_side[j][3]):
+        l[m]=left_side[i]
+        i+=1
+      else:
+        l[m]=right_side[j]
+        j+=1
+      m+=1
+    while i<len(left_side):
+      l[m]=left_side[i]
+      i+=1
+      m+=1
+    while j>len(right_side):
+      l[m]=right_side[j]
+      j+=1
+      m+=1
+  else:
+    return 
+
+  from datetime import date
+  today = date.today() # dd/mm/YY
+  date = today.strftime("%Y%m%d")   #https://www.programiz.com/python-programming/datetime/current-datetime
+
+  
+
+
+def mergeSort1(l):
+    if len(l)>1:
+      left_side=l[:len(l)//2]
+      right_side=l[len(l)//2:]
+      mergeSort1(left_side) 
+      mergeSort1(right_side)
+
+      i=0 
+      j=0 
+      m=0 
+      while i<len(left_side) and j<len(right_side):
+        if int(left_side[i][1][2:])<int(right_side[j][1][2:]):
+          l[m]=left_side[i]
+          i+=1
+        else:
+          l[m]=right_side[j]
+          j+=1
+        m+=1
+      while i<len(left_side):
+        l[m]=left_side[i]
+        i+=1
+        m+=1
+      while j>len(right_side):
+        l[m]=right_side[j]
+        j+=1
+        m+=1
+    else:
+      return
+
+
+ 
+
+
 
 
 #Change Priority:
@@ -224,4 +321,4 @@ def runEvents():
     print(ticket)
     lst1.remove(ticket)
 
-dispStat()
+dispAllTickets()
