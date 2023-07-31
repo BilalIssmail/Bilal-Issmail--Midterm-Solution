@@ -69,7 +69,7 @@ def dispAdMenu():
 6. Run Events
 7. Exit
 Please enter the number of your choice: """  )
-  if admin_input == 1:
+  if int(admin_input) == 1:
     dispStat()
     dispAdMenu()
   elif int(admin_input) == 2:
@@ -114,7 +114,7 @@ def dispUserMenu():
 ######################
 
 # Display Statistics:
-event_dict = {}
+"""event_dict = {}
 for i in D:
   if D[i][0] not in event_dict:
     event_dict[D[i][0]]=[i]
@@ -127,10 +127,19 @@ for i in D:
   if D[i][2] not in date_dict:
     date_dict[D[i][2]]=[i]
   else:
-    date_dict[D[i][2]].append(i)
+    date_dict[D[i][2]].append(i)"""
 
+def dispStat():
+  events_dict = {}
+  for item in lst1:
+    event_id = item[1]
+    events_dict[event_id] = events_dict.get(event_id, 0) + 1
+  max_event = max(events_dict, key=events_dict.get)
+  print(f"The event with the most tickets is {max_event}, with {events_dict[max_event]} tickets.")
 
-#list that shows all events:
+  
+
+#list that shows all events: here I tried to make a dictionary to use later to count each event lists considering events with same id but different date different events, but I did not manage to discriminate events based on both date and id.
 
 all_ev_lst = []
 for i in range(len(lst1)):
@@ -139,8 +148,6 @@ for i in range(len(lst1)):
     if temp_lst not in all_ev_lst: 
       all_ev_lst.append(temp_lst)
 
-print(len(all_ev_lst))
-print(all_ev_lst)
         
 #Admin Book ticket
 
@@ -217,4 +224,4 @@ def runEvents():
     print(ticket)
     lst1.remove(ticket)
 
-#dispMenu(n)
+dispStat()
