@@ -395,6 +395,7 @@ def saveChanges():
     for i in new_list:  
       file.write(i+"\n")
   return
+##https://www.youtube.com/watch?v=Uh2ebFW8OYMdata=file.read(
 
 
 
