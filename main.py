@@ -74,15 +74,18 @@ Please enter the number of your choice: """  )
     dispAdMenu()
   elif int(admin_input) == 2:
     bookTicket()
+    saveChanges()
     dispAdMenu()
   elif int(admin_input) == 3:
     dispAllTickets()
     dispAdMenu()
   elif int(admin_input) == 4:
     changePriority()
-    dispAdMenu
+    saveChanges()
+    dispAdMenu()
   elif int(admin_input) == 5:
     removeTicket()
+    saveChanges()
     dispAdMenu()
   elif int(admin_input) == 6:
     runEvents()
@@ -103,17 +106,51 @@ def dispUserMenu():
   1. Book a ticket
   2. Exit
   """)
-  if user_input == 1:
-    bookTicket()
+  if int(user_input) == 1:
+    bookTicket1()
+    saveChanges()
     print("""Your ticket has been successfully booked.
     You can book another ticket or exit.""")
     dispUserMenu()
+  elif int(user_input) == 2:
+    print("You have logged out.")
+    dispMenu(n)
+  else:
+    print("Wrong entry. Please choose a number from the menu.")
+    dispUserMenu()
+
+
+##############################
+# Normal User Menu Functions:#
+##############################
+
+# 1- Book a ticket:
+
+
+def bookTicket1(): #same as admin book ticket function except that in this case the priority will be 0 by default without normal user interferance.
+  id_list = [i for i in D]
+  id_list.sort()
+  new_ticket = int((id_list[-1][4:]))+1
+  
+  if new_ticket < 10:
+    ticket_id = "tick00" + str(new_ticket)
+  elif 10 <= new_ticket <100 :
+    ticket_id = "tick0" + str(new_ticket)
+  else:
+    ticket_id = "tick" + str(new_ticket)
+
+  user_name = input("Please enter the username you want to print on ticket: ")
+  event_id = input("Please enter the event id: ")
+  event_date  =input("Please enter the event date in the form YYYYMMDD: ")
+
+  D[ticket_id] = [event_id,user_name,event_date, "0"]
+  print(ticket_id + " was successfully booked.")
 
 ######################
 #Admin Menu Functions#
 ######################
 
-# Display Statistics:
+# 1- Display Statistics:
 """event_dict = {}
 for i in D:
   if D[i][0] not in event_dict:
@@ -149,7 +186,7 @@ for i in range(len(lst1)):
       all_ev_lst.append(temp_lst)
 
         
-#Admin Book ticket
+# 2- Admin Book ticket
 
 def bookTicket():
 
@@ -169,10 +206,10 @@ def bookTicket():
   event_date  =input("Please enter the event date in the form YYYYMMDD: ")
   priority = input("Please enter the priority of the ticket: ")
 
-  D[ticket_id] = [user_name,event_id,event_date,priority]
+  D[ticket_id] = [event_id,user_name,event_date,priority]
   print(ticket_id + " was successfully booked.")
 
-#Display All Tickets
+# 3- Display All Tickets
 
 def dispAllTickets():
   today_events = []
@@ -192,9 +229,8 @@ def dispAllTickets():
     elif int(ticket[3])  > int(date) + 1:
       upcoming_events.append(ticket)
       mergeSort(upcoming_events)
-      mergeSort1(upcoming_events)
+      #mergeSort1(upcoming_events) #I failed to sort this list according to event id because it ruined sorting according to date.
 
-  print(int(date))
   print("Today's events tickets are: ")
   print(today_events)
   print("Tomorrow's events tickets are: ")
@@ -204,7 +240,7 @@ def dispAllTickets():
 #mergeSort1(upcoming_events)
  # print(upcoming_events)
   
-def mergeSort(l):
+def mergeSort(l): #I used merge sorting based on date.
   if len(l)>1:
     left_side=l[:len(l)//2]
     right_side=l[len(l)//2:]
@@ -232,14 +268,12 @@ def mergeSort(l):
       m+=1
   else:
     return 
-
+#To import date from computer and format it as specified:
   from datetime import date
   today = date.today() # dd/mm/YY
   date = today.strftime("%Y%m%d")   #https://www.programiz.com/python-programming/datetime/current-datetime
 
-  
-
-
+#Then I used another merge sorting function to sort lists based on evend id (but this lead me later to a bug when the list contain lists having different date (upcoming events list) since it will ruin the sorting by date.)
 def mergeSort1(l):
     if len(l)>1:
       left_side=l[:len(l)//2]
@@ -269,13 +303,7 @@ def mergeSort1(l):
     else:
       return
 
-
- 
-
-
-
-
-#Change Priority:
+# 4- Change Priority:
 
 def changePriority():
   ticket_id = input("Enter the id of the ticket you want to change priority for: ")
@@ -288,7 +316,7 @@ def changePriority():
     print("The ticket " + ticket_id + " has been successfully assigned a " + str(new_priority) + " priority value.")
   dispAdMenu()
 
-#Remove Ticket:
+# 5- Remove Ticket:
 def removeTicket():
   ticket_id = input("Enter the id of the ticket you want to remove: ")
   if ticket_id not in D:
@@ -303,22 +331,72 @@ def removeTicket():
   
 
 # 6 Run Events:
-
+#same used before to get date from computer:
 from datetime import date
 today = date.today() # dd/mm/YY
 date = today.strftime("%Y%m%d") #https://www.programiz.com/python-programming/datetime/current-datetime
 def runEvents():
   print("The following tickets are to be run today: ")
+  today_events = [ticket for ticket in lst1 if ticket[3] == date]
+  
 
-  today_events = []
+
+  """today_events = []
   for ticket in lst1:
     if ticket[3] == date:
-      today_events.append(ticket)
+      today_events.append(ticket)"""
 
+  def sortPriority(today_events): #merge sort our list by priority to show higher priority tickets first
+    if len(today_events)>1:
+      left_side=today_events[:len(today_events)//2]
+      right_side=today_events[len(today_events)//2:]
+      mergeSort1(left_side) 
+      mergeSort1(right_side)
 
+      i=0 
+      j=0 
+      m=0 
+      while i<len(left_side) and j<len(right_side):
+        if int(left_side[i][4])>int(right_side[j][4]):
+          today_events[m]=left_side[i]
+          i+=1
+        else:
+          today_events[m]=right_side[j]
+          j+=1
+        m+=1
+      while i<len(left_side):
+        today_events[m]=left_side[i]
+        i+=1
+        m+=1
+      while j>len(right_side):
+        today_events[m]=right_side[j]
+        j+=1
+        m+=1
+    else:
+      return
 
+  sortPriority(today_events)
+  today_events.sort(key=lambda ticket: int(ticket[4])) ##used .sorted lambda because merge sort function I've created (sortPriority) is not executed in runEvent().
   for ticket in today_events:
     print(ticket)
-    lst1.remove(ticket)
 
-dispAllTickets()
+  updated_lst1 = [ticket for ticket in lst1 if ticket not in today_events]
+  lst1.clear()
+  lst1.extend(updated_lst1)
+  saveChanges()
+    
+
+# Defining a function to save changes to txt file:
+def saveChanges():
+  new_list=[]
+  for i in D:
+    new_list.append(', '.join([i]+D[i]))
+  with open("text.txt","w") as file:
+    for i in new_list:  
+      file.write(i+"\n")
+  return
+
+
+
+
+dispMenu(n)
