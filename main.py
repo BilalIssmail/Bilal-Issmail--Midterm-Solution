@@ -170,9 +170,9 @@ def dispStat():
   events_dict = {}
   for item in lst1:
     event_id = item[1]
-    events_dict[event_id] = events_dict.get(event_id, 0) + 1
-  max_event = max(events_dict, key=events_dict.get)
-  print(f"The event with the most tickets is {max_event}, with {events_dict[max_event]} tickets.")
+    events_dict[event_id] = events_dict.get(event_id, 0) + 1 #get() method is used to count the occurrences of each event ID in the lst1 list and update the count in the events_dict dictionary ().The 0 is default value, and every time the event id is met its counter is incremented by 1. (https://www.programiz.com/python-programming/methods/dictionary/get)
+  max_event = max(events_dict, key=events_dict.get) #https://www.w3schools.com/python/ref_func_max.asp
+  print(f"The event with the most tickets is {max_event}, with {events_dict[max_event]} tickets.") #used f string to evaluate values inside dictionary (https://stackoverflow.com/questions/68468024/how-to-use-a-variable-as-dictionary-key-using-f-string-in-python)
 
   
 
@@ -395,7 +395,7 @@ def saveChanges():
     for i in new_list:  
       file.write(i+"\n")
   return
-##https://www.youtube.com/watch?v=Uh2ebFW8OYMdata=file.read(
+  ##https://www.youtube.com/watch?v=Uh2ebFW8OYMdata=file.read(
 
 
 
