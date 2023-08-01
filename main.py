@@ -390,7 +390,7 @@ def runEvents():
 def saveChanges():
   new_list=[]
   for i in D:
-    new_list.append(', '.join(str([i]+D[i])))
+    new_list.append(', '.join([i]+D[i]))
   with open("text.txt","w") as file:
     for i in new_list:  
       file.write(i+"\n")
